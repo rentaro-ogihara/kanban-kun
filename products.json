@@ -1,0 +1,455 @@
+{
+ "updated": "2026-11-20",
+ "items": [
+  {
+   "loc": "C-01",
+   "code": "VITAS017_700g",
+   "name": "プロテイン ブルーベリーヨーグルト風味(700g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-02",
+   "code": "VITAS006_700g",
+   "name": "プロテイン キウイ風味(700g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-03",
+   "code": "VITAS036_700g",
+   "name": "プロテイン カフェラテ風味(700g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-04",
+   "code": "VITAS012_700g",
+   "name": "プロテイン マンゴー風味(700g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-05",
+   "code": "VITAS016_700g",
+   "name": "プロテイン フルーツミックス風味(700g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-06",
+   "code": "VITAS035_700g",
+   "name": "プロテイン りんごヨーグルト風味(700g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-07",
+   "code": "VITAS026",
+   "name": "ソイプロテイン 焙煎抹茶風味（700g）",
+   "qty": ""
+  },
+  {
+   "loc": "C-08",
+   "code": "VITAS008_700g",
+   "name": "プロテイン チョコ風味(700g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-09",
+   "code": "VITAS027",
+   "name": "ソイプロテイン ほうじ茶風味（700g）",
+   "qty": ""
+  },
+  {
+   "loc": "C-10",
+   "code": "VITAS007_700g",
+   "name": "プロテイン バナナ風味(700g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-11",
+   "code": "VITAS014_700g",
+   "name": "プロテイン あまおう風味(700g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-12",
+   "code": "VITAS028",
+   "name": "ソイプロテイン ヘーゼルナッツバニラ風味（700g）",
+   "qty": ""
+  },
+  {
+   "loc": "C-13",
+   "code": "VITAS024_700g",
+   "name": "プロテイン ピーチヨーグルト風味(700g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-14",
+   "code": "VITAS017_450g",
+   "name": "プロテイン ブルーベリーヨーグルト風味450g",
+   "qty": ""
+  },
+  {
+   "loc": "C-15",
+   "code": "VITAS024_450g",
+   "name": "プロテイン ピーチヨーグルト風味450g",
+   "qty": ""
+  },
+  {
+   "loc": "C-16",
+   "code": "VITAS008_450g",
+   "name": "プロテイン チョコ風味450g",
+   "qty": ""
+  },
+  {
+   "loc": "C-17",
+   "code": "VITAS036_450g",
+   "name": "プロテイン カフェラテ風味450g",
+   "qty": ""
+  },
+  {
+   "loc": "C-18",
+   "code": "VITAS012_450g",
+   "name": "プロテイン マンゴー風味450g",
+   "qty": ""
+  },
+  {
+   "loc": "C-19",
+   "code": "VITAS006_450g",
+   "name": "プロテイン キウイ風味450g",
+   "qty": ""
+  },
+  {
+   "loc": "C-20",
+   "code": "VITAS035_450g",
+   "name": "プロテイン りんごヨーグルト風味450g",
+   "qty": ""
+  },
+  {
+   "loc": "C-21",
+   "code": "VITAS037_450g",
+   "name": "プロテイン ミルクティー風味450g",
+   "qty": ""
+  },
+  {
+   "loc": "C-22",
+   "code": "VITAS002",
+   "name": "EAA キウイ味(520g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-23",
+   "code": "VITAS003",
+   "name": "EAA ライチ味(520g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-24",
+   "code": "VITAS013",
+   "name": "EAA みかん味(520g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-25",
+   "code": "VITAS018",
+   "name": "EAA マンゴー味(520g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-26",
+   "code": "VITAS034",
+   "name": "EAA 梅シトラス味(520g)",
+   "qty": ""
+  },
+  {
+   "loc": "C-27",
+   "code": "yomemoroch",
+   "name": "プロテインマグケーキ チョコ風味",
+   "qty": ""
+  },
+  {
+   "loc": "C-28",
+   "code": "yomemoromt",
+   "name": "プロテインマグケーキ ミルクティー風味",
+   "qty": ""
+  },
+  {
+   "loc": "C-29",
+   "code": "yomemoromc",
+   "name": "プロテインマグケーキ 抹茶風味",
+   "qty": ""
+  },
+  {
+   "loc": "C-30",
+   "code": "yomemorosc",
+   "name": "プロテインマグケーキ 塩キャラメル風味",
+   "qty": ""
+  },
+  {
+   "loc": "C-31",
+   "code": "yomemoro01",
+   "name": "プロテインマグケーキ レモンチーズケーキ風味",
+   "qty": ""
+  },
+  {
+   "loc": "C-32",
+   "code": "VITAS032",
+   "name": "VITAS ソイーツ チョコ風味",
+   "qty": ""
+  },
+  {
+   "loc": "C-33",
+   "code": "VITAS031",
+   "name": "VITAS ソイーツ バナナ風味",
+   "qty": ""
+  },
+  {
+   "loc": "C-34",
+   "code": "VITAS005",
+   "name": "シトルリン・アルギニンパウダー エナジー味",
+   "qty": ""
+  },
+  {
+   "loc": "C-35",
+   "code": "VITAS025",
+   "name": "シトルリン・アルギニンパウダー ライフガード味",
+   "qty": ""
+  },
+  {
+   "loc": "C-36",
+   "code": "VITAS009_600",
+   "name": "クレアチン 600g",
+   "qty": ""
+  },
+  {
+   "loc": "C-37",
+   "code": "VITAS019",
+   "name": "VITAS VINOBBY(乳酸菌飲料風味)",
+   "qty": ""
+  },
+  {
+   "loc": "C-38",
+   "code": "VITAS039",
+   "name": "VITAS VINOBBY(ココア風味)",
+   "qty": ""
+  },
+  {
+   "loc": "C-39",
+   "code": "VITAS010",
+   "name": "グルタミン",
+   "qty": ""
+  },
+  {
+   "loc": "C-40",
+   "code": "soyeets-shaker280",
+   "name": "ソイーツシェイカー280ml",
+   "qty": ""
+  },
+  {
+   "loc": "C-41",
+   "code": "v-shaker1000CB",
+   "name": "VITASプロテインシェイカー1000ml(クリアブラック)",
+   "qty": ""
+  },
+  {
+   "loc": "C-42",
+   "code": "v-shaker500",
+   "name": "VITASプロテインシェイカー500ml",
+   "qty": ""
+  },
+  {
+   "loc": "C-43",
+   "code": "v-shaker1000CL",
+   "name": "VITASプロテインシェイカー1000ml(クリア)",
+   "qty": ""
+  },
+  {
+   "loc": "C-44",
+   "code": "VITAS029",
+   "name": "グルカット",
+   "qty": ""
+  },
+  {
+   "loc": "C-45",
+   "code": "VITAS023",
+   "name": "NMN27000",
+   "qty": ""
+  },
+  {
+   "loc": "C-47",
+   "code": "VITAS001_JAN",
+   "name": "【JAN】VITA POWER",
+   "qty": ""
+  },
+  {
+   "loc": "C-48",
+   "code": "vitafit_JAN",
+   "name": "【JAN】vitafit",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS001_mini",
+   "name": "【公式】VITA POWER 個包装",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS002mini",
+   "name": "EAAキウイ【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS003mini",
+   "name": "EAAライチ【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS006mini",
+   "name": "プロテイン キウイ風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS007mini",
+   "name": "プロテイン バナナ風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS008mini",
+   "name": "プロテイン チョコ風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS012mini",
+   "name": "プロテイン マンゴー風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS013mini",
+   "name": "EAA みかん【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS014mini",
+   "name": "プロテイン あまおう風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS016mini",
+   "name": "プロテイン フルーツミックス風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS017mini",
+   "name": "プロテイン ブルーベリー風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS018mini",
+   "name": "EAAマンゴー【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS019mini",
+   "name": "VITAS VINOBBY【個包装】(乳酸菌飲料風味)",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS024mini",
+   "name": "プロテイン ピーチヨーグルト風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS026_mini",
+   "name": "ソイプロテイン 焙煎抹茶風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS027_mini",
+   "name": "ソイプロテイン ほうじ茶風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS028_mini",
+   "name": "ソイプロテイン ヘーゼルナッツバニラ風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS034mini",
+   "name": "EAA梅シトラス【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS035mini",
+   "name": "プロテイン りんごヨーグルト風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS036mini",
+   "name": "プロテイン カフェラテ風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITAS037mini",
+   "name": "プロテイン ミルクティー風味【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "VITASHOWER_minipouch",
+   "name": "VITA SHOWER 【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "vitafit_mini",
+   "name": "VITAFIT fe.【個包装】",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "yomemoro01_mini",
+   "name": "嫁マグ個包装 レモンチーズケーキ風味",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "yomemoroch_mini",
+   "name": "嫁マグ個包装 チョコ風味",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "yomemoromc_mini",
+   "name": "嫁マグ個包装 抹茶風味",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "yomemoromt_mini",
+   "name": "嫁マグ個包装 ミルクティー風味",
+   "qty": ""
+  },
+  {
+   "loc": "梱包室前",
+   "code": "yomemorosc_mini",
+   "name": "嫁マグ個包装 塩キャラメル風味",
+   "qty": ""
+  }
+ ]
+}

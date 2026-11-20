@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>カンバン君</title>
+<meta name="theme-color" content="#13294b">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#13294b;--blue:#2563aa;--bg:#f3f5f9;--line:#cdd5e2;--text:#111;--warn:#9a5b00;--warnbg:#fff4e0}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+body{font-family:"Noto Sans JP","Noto Sans CJK JP","Yu Gothic","YuGothic","Meiryo",sans-serif;color:var(--text);background:var(--bg)}
+button,input,select{font:inherit}
+/* ===== 画面 ===== */
+header.top{background:var(--navy);color:#fff;display:flex;align-items:center;gap:12px;padding:10px 16px}
+header.top img{width:32px;height:32px;border-radius:7px}
+header.top h1{font-size:20px;font-weight:900;letter-spacing:.05em}
+header.top .sub{font-size:12px;color:#c9d6ea;margin-left:auto}
+.app{display:grid;grid-template-columns:minmax(520px,640px) 1fr;gap:16px;padding:16px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:12px;align-self:start;position:sticky;top:16px;max-height:calc(100vh - 32px - 52px);overflow:auto}
+h2{font-size:15px;color:var(--navy);display:flex;align-items:center;gap:8px}
+h2 .meta{font-size:12px;color:#666;font-weight:400;margin-left:auto}
+.box{border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.help{font-size:12px;color:#555;line-height:1.6}
+.btn{border:0;border-radius:6px;padding:7px 12px;font-weight:700;cursor:pointer;background:#e4e9f2;color:var(--navy);white-space:nowrap}
+.btn:hover{filter:brightness(.96)}
+.btn.main{background:var(--navy);color:#fff;font-size:17px;padding:12px 18px}
+.btn.on{background:var(--blue);color:#fff}
+.btn.del{background:transparent;color:#b42318;padding:2px 6px}
+.btn:disabled{opacity:.4;cursor:default}
+.row-flex{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+input.text{border:1px solid var(--line);border-radius:6px;padding:7px 10px;width:100%}
+.listwrap{max-height:46vh;overflow:auto;border:1px solid #eef0f4;border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#eef2f8;text-align:left;padding:6px;color:var(--navy);font-size:12px;white-space:nowrap;position:sticky;top:0;z-index:1}
+td{padding:4px 6px;border-bottom:1px solid #eef0f4;vertical-align:middle}
+tbody.master tr{cursor:pointer}
+tbody.master tr:hover{background:#f6f8fc}
+tbody.master tr.sel{background:#e8f0fb}
+td.ck{width:28px;text-align:center}
+td.ck input{width:17px;height:17px;cursor:pointer}
+td.loc{white-space:nowrap;font-weight:700;color:var(--navy)}
+td.code{font-family:ui-monospace,Consolas,monospace;font-size:12px}
+td.qty{text-align:right;white-space:nowrap}
+td input[type=text],td input[type=number]{width:100%;border:1px solid var(--line);border-radius:4px;padding:4px 6px;font-size:13px}
+td input[type=number]{width:64px}
+.banner{background:var(--warnbg);color:var(--warn);border:1px solid #f0cf94;border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.6}
+.msg{font-size:13px;color:#0a6b3a;min-height:1em}
+.msg.err{color:#b42318}
+details.admin summary{cursor:pointer;font-weight:700;color:var(--navy);font-size:14px}
+details.admin[open] summary{margin-bottom:8px}
+ol.steps{font-size:12px;color:#444;line-height:1.7;padding-left:18px}
+.preview{display:flex;flex-direction:column;gap:14px;align-items:flex-start;min-width:0}
+.preview .count{font-weight:700;color:var(--navy)}
+.frame{width:calc(297mm * var(--s));height:calc(210mm * var(--s));overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.2);background:#fff;flex:none}
+.frame .pg{transform:scale(var(--s));transform-origin:0 0}
+.empty{color:#777;padding:40px}
+/* ===== カンバン本体（A4横） ===== */
+.pg{width:297mm;height:210mm;display:flex;padding:8mm;gap:6mm;overflow:hidden;background:#fff}
+.locbox{width:92mm;flex:0 0 92mm;background:var(--navy);color:#fff;border-radius:5mm;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 4mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.locbox .lbl{color:#c9d6ea;font-size:16pt;font-weight:700;letter-spacing:.2em}
+.locv{font-weight:900;line-height:1.1;white-space:nowrap;text-align:center;width:100%}
+.main{flex:1;display:flex;flex-direction:column;gap:4mm;min-width:0}
+.card{border:1.2mm solid var(--navy);border-radius:4mm;padding:3mm 6mm;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.card .lbl{font-size:14pt;font-weight:700;color:var(--navy)}
+.v{font-weight:900;line-height:1.15;overflow-wrap:anywhere}
+.c-code{flex:0 0 46mm}.codev{white-space:nowrap;margin-top:1mm}
+.c-name{flex:1;min-height:0}.namev{margin-top:2mm;line-height:1.4;letter-spacing:.03em;font-weight:800;word-break:keep-all}
+.c-qty{flex:0 0 52mm}
+.qbox{flex:1;display:flex;align-items:flex-end;gap:4mm;padding:0 2mm 3mm}
+.blank{flex:1;border-bottom:1mm dashed #555;height:100%}
+.qnum{flex:1;text-align:right;font-size:72pt;font-weight:900;line-height:1}
+.unit{font-size:44pt;font-weight:900;line-height:1}
+/* ===== 印刷 ===== */
+@page{size:A4 landscape;margin:0}
+@media print{
+  body{background:#fff}
+  header.top,.panel,.preview .count,.preview .empty{display:none!important}
+  .app{display:block;padding:0}
+  .preview{display:block}
+  .frame{width:auto;height:auto;box-shadow:none;overflow:visible}
+  .frame .pg{transform:none;break-after:page;page-break-after:always}
+  .frame:last-child .pg{break-after:auto;page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <img src="icon-192.png" alt="">
+  <h1>カンバン君</h1>
+  <span class="sub">棚カンバンをA4横で印刷</span>
+</header>
+
+<div class="app">
+  <div class="panel">
+    <div id="draftBanner" class="banner" hidden>このPCで商品一覧を編集中です。GitHubに上げるまで、ほかのPCには反映されません。</div>
+
+    <div class="box">
+      <h2>① 印刷する商品を選ぶ <span class="meta" id="updated"></span></h2>
+      <input class="text" id="q" placeholder="さがす（ロケ・商品コード・商品名）　例：C-1　梱包室　キウイ">
+      <div class="row-flex">
+        <button class="btn" id="selAll">表示中をすべて選ぶ</button>
+        <button class="btn" id="selNone">選択をはずす</button>
+        <span class="help" id="selInfo"></span>
+      </div>
+      <div class="listwrap">
+        <table>
+          <thead id="mHead"></thead>
+          <tbody class="master" id="mBody"></tbody>
+        </table>
+      </div>
+      <div class="row-flex" id="editTools" hidden>
+        <button class="btn" id="mAdd">＋ 行を追加</button>
+        <span class="help">入数を入れると大きく印字、空欄なら手書き用の欄になります。</span>
+      </div>
+    </div>
+
+    <div class="box">
+      <h2>② 一覧にない商品をその場で作る</h2>
+      <p class="help">ここに入れた分は、このPCだけに残ります（ほかの人の一覧には入りません）。入力した行はすべて印刷されます。</p>
+      <table>
+        <thead><tr><th style="width:84px">ロケ</th><th style="width:140px">商品コード</th><th>商品名</th><th>入数</th><th></th></tr></thead>
+        <tbody id="xBody"></tbody>
+      </table>
+      <div class="row-flex">
+        <button class="btn" id="xAdd">＋ 行を追加</button>
+        <button class="btn" id="xClear">すべて消す</button>
+      </div>
+    </div>
+
+    <button class="btn main" id="print">🖨 印刷する</button>
+    <p class="help">印刷設定は <b>A4・横向き・倍率100%（実際のサイズ）・余白なし</b>。</p>
+
+    <details class="admin box" id="admin">
+      <summary>商品一覧を更新する（荻原さん用）</summary>
+      <div class="row-flex">
+        <button class="btn" id="editToggle">✎ 一覧を編集する</button>
+        <button class="btn" id="discard">編集を取り消す</button>
+      </div>
+      <div>
+        <p class="help"><b>在庫CSVから追加</b>（ロジレスの在庫一覧 ActualInventorySummaries）</p>
+        <input class="text" id="prefix" value="八寸町倉庫【通常】C-" title="この文字で始まるロケーションだけ読み込む">
+        <label class="help" style="display:flex;gap:6px;align-items:center;margin:4px 0"><input type="checkbox" id="parentOnly" checked> 親ロケのみ（C-01 は対象、C-01-01 は対象外）</label>
+        <label class="help" style="display:flex;gap:6px;align-items:center;margin:4px 0">ロケを次の名前にそろえる（空欄ならCSVのまま）<input class="text" id="locOverride" style="width:140px" placeholder="例：梱包室前"></label>
+        <input type="file" id="csv" accept=".csv">
+        <p class="msg" id="msg"></p>
+      </div>
+      <button class="btn on" id="export">⬇ products.json を書き出す</button>
+      <ol class="steps">
+        <li>「一覧を編集する」で直すか、CSVで追加する</li>
+        <li>「products.json を書き出す」でファイルを保存する</li>
+        <li>GitHub の kanban-kun を開き「Add file → Upload files」で products.json を上げて「Commit changes」</li>
+        <li>1〜2分後、全員のカンバン君に反映（反映されたらこのPCの「編集を取り消す」を押す）</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="preview" id="preview"></div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const K_DRAFT = 'kanbankun-draft-v1', K_EXTRA = 'kanbankun-extra-v1';
+const ls = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  del(k){ try { localStorage.removeItem(k); } catch (e) {} }
+};
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm = s => String(s ?? '').normalize('NFKC').toLowerCase();
+const natural = (a, b) => a.loc.localeCompare(b.loc, 'ja', {numeric:true}) || a.code.localeCompare(b.code);
+const blank = () => ({loc:'', code:'', name:'', qty:''});
+let uid = 0;
+const withId = it => ({id: ++uid, loc: it.loc || '', code: it.code || '', name: it.name || '', qty: it.qty ?? ''});
+
+let master = [], serverMeta = {}, editing = false;
+let selected = new Set();
+let extra = ls.get(K_EXTRA, []);
+if (!extra.length) extra = [blank()];
+
+/* ---------- 共通一覧の読み込み ---------- */
+async function loadMaster(){
+  const draft = ls.get(K_DRAFT, null);
+  try {
+    const res = await fetch('products.json?t=' + Date.now(), {cache:'no-store'});
+    serverMeta = await res.json();
+  } catch (e) { serverMeta = {items:[]}; }
+  const src = draft ? draft.items : (serverMeta.items || []);
+  master = src.map(withId).sort(natural);
+  $('#draftBanner').hidden = !draft;
+  $('#updated').textContent = draft ? 'このPCで編集中' : (serverMeta.updated ? '更新日 ' + serverMeta.updated : '');
+  renderMaster(); renderPreview();
+}
+function saveDraft(){
+  ls.set(K_DRAFT, {items: master.map(({loc,code,name,qty}) => ({loc,code,name,qty}))});
+  $('#draftBanner').hidden = false; $('#updated').textContent = 'このPCで編集中';
+}
+
+/* ---------- 一覧の表示 ---------- */
+function visible(){
+  const q = norm($('#q').value).split(/\s+/).filter(Boolean);
+  return master.filter(it => { const t = norm(it.loc + ' ' + it.code + ' ' + it.name); return q.every(w => t.includes(w)); });
+}
+function renderMaster(){
+  const list = visible();
+  if (editing){
+    $('#mHead').innerHTML = '<tr><th style="width:84px">ロケ</th><th style="width:150px">商品コード</th><th>商品名</th><th>入数</th><th></th></tr>';
+    $('#mBody').innerHTML = list.map(it => `<tr data-id="${it.id}">
+      <td><input type="text" data-k="loc" value="${esc(it.loc)}"></td>
+      <td><input type="text" data-k="code" value="${esc(it.code)}"></td>
+      <td><input type="text" data-k="name" value="${esc(it.name)}"></td>
+      <td><input type="number" min="0" data-k="qty" value="${esc(it.qty)}"></td>
+      <td><button class="btn del" data-del="1" title="一覧から消す">✕</button></td></tr>`).join('');
+  } else {
+    $('#mHead').innerHTML = '<tr><th></th><th>ロケ</th><th>商品コード</th><th>商品名</th><th>入数</th></tr>';
+    $('#mBody').innerHTML = list.map(it => `<tr data-id="${it.id}" class="${selected.has(it.id) ? 'sel' : ''}">
+      <td class="ck"><input type="checkbox" ${selected.has(it.id) ? 'checked' : ''}></td>
+      <td class="loc">${esc(it.loc)}</td><td class="code">${esc(it.code)}</td><td>${esc(it.name)}</td>
+      <td class="qty">${it.qty !== '' ? esc(it.qty) + '個' : '<span style="color:#aaa">手書き</span>'}</td></tr>`).join('')
+      || '<tr><td colspan="5" class="help" style="padding:16px">見つかりませんでした。</td></tr>';
+  }
+  $('#editTools').hidden = !editing;
+  $('#selAll').disabled = $('#selNone').disabled = editing;
+  $('#selInfo').textContent = editing ? '編集中は選べません' : `${master.length}件中 ${selected.size}件を選択中`;
+}
+
+$('#q').addEventListener('input', renderMaster);
+$('#selAll').onclick = () => { visible().forEach(it => selected.add(it.id)); renderMaster(); renderPreview(); };
+$('#selNone').onclick = () => { selected.clear(); renderMaster(); renderPreview(); };
+
+$('#mBody').addEventListener('click', e => {
+  const tr = e.target.closest('tr[data-id]'); if (!tr) return;
+  const id = +tr.dataset.id;
+  if (editing){
+    if (e.target.dataset.del){ master = master.filter(it => it.id !== id); selected.delete(id); saveDraft(); renderMaster(); renderPreview(); }
+    return;
+  }
+  selected.has(id) ? selected.delete(id) : selected.add(id);
+  renderMaster(); renderPreview();
+});
+let t1;
+$('#mBody').addEventListener('input', e => {
+  const k = e.target.dataset.k; if (!k) return;
+  const it = master.find(m => m.id === +e.target.closest('tr').dataset.id); if (!it) return;
+  it[k] = e.target.value; saveDraft();
+  clearTimeout(t1); t1 = setTimeout(renderPreview, 300);
+});
+$('#mAdd').onclick = () => {
+  const it = withId(blank()); master.unshift(it); $('#q').value = ''; saveDraft(); renderMaster();
+  const f = $('#mBody').querySelector('input'); if (f) f.focus();
+};
+
+/* ---------- その場で作る（このPCだけ） ---------- */
+function renderExtra(){
+  $('#xBody').innerHTML = extra.map((r,i) => `<tr>
+    <td><input type="text" data-i="${i}" data-k="loc" value="${esc(r.loc)}" placeholder="C-51"></td>
+    <td><input type="text" data-i="${i}" data-k="code" value="${esc(r.code)}"></td>
+    <td><input type="text" data-i="${i}" data-k="name" value="${esc(r.name)}"></td>
+    <td><input type="number" min="0" data-i="${i}" data-k="qty" value="${esc(r.qty)}"></td>
+    <td><button class="btn del" data-x="${i}" title="この行を消す">✕</button></td></tr>`).join('');
+}
+let t2;
+$('#xBody').addEventListener('input', e => {
+  const t = e.target; if (!t.dataset.k) return;
+  extra[+t.dataset.i][t.dataset.k] = t.value; ls.set(K_EXTRA, extra);
+  clearTimeout(t2); t2 = setTimeout(renderPreview, 300);
+});
+$('#xBody').addEventListener('click', e => {
+  const i = e.target.dataset.x; if (i === undefined) return;
+  extra.splice(+i, 1); if (!extra.length) extra.push(blank());
+  ls.set(K_EXTRA, extra); renderExtra(); renderPreview();
+});
+$('#xAdd').onclick = () => { extra.push(blank()); ls.set(K_EXTRA, extra); renderExtra();
+  const ins = $('#xBody').querySelectorAll('tr:last-child input'); if (ins[0]) ins[0].focus(); };
+$('#xClear').onclick = () => { if (!confirm('②に入力した内容をすべて消しますか？')) return;
+  extra = [blank()]; ls.set(K_EXTRA, extra); renderExtra(); renderPreview(); };
+
+/* ---------- カンバン ---------- */
+function cardHTML(r){
+  const qty = String(r.qty ?? '').trim();
+  return `<section class="pg">
+    <div class="locbox"><div class="lbl">ロケーション</div><div class="locv fit" data-max="88" data-lines="1">${esc(r.loc)}</div></div>
+    <div class="main">
+      <div class="card c-code"><div class="lbl">商品コード</div><div class="v codev fit" data-max="66" data-lines="1">${esc(r.code)}</div></div>
+      <div class="card c-name"><div class="lbl">商品名</div><div class="v namev fit" data-max="52" data-lines="3">${esc(r.name)}</div></div>
+      <div class="card c-qty"><div class="lbl">1箱の入数</div><div class="qbox">${qty ? `<span class="qnum">${esc(qty)}</span>` : '<span class="blank"></span>'}<span class="unit">個</span></div></div>
+    </div></section>`;
+}
+// 枠に収まるまで文字を小さくする
+function fit(el){
+  let s = +el.dataset.max; const n = +el.dataset.lines;
+  el.style.fontSize = s + 'pt';
+  const too = () => {
+    const lh = parseFloat(getComputedStyle(el).lineHeight);
+    const p = el.parentElement;
+    return el.scrollWidth > el.clientWidth + 1 || el.offsetHeight > lh * n + 2 || p.scrollHeight > p.clientHeight + 1;
+  };
+  while (s > 12 && too()) { s -= 1; el.style.fontSize = s + 'pt'; }
+}
+function printList(){
+  const fromMaster = editing ? [] : master.filter(it => selected.has(it.id));
+  const fromExtra = extra.filter(r => (r.loc + r.code + r.name).trim());
+  return fromMaster.concat(fromExtra);
+}
+function renderPreview(){
+  const list = printList();
+  const pv = $('#preview');
+  const sc = Math.min(1, Math.max(0.3, (pv.clientWidth - 10) / (297 * 3.78)));
+  pv.innerHTML = `<div class="count">完成イメージ：${list.length}枚</div>` +
+    (list.length ? list.map(r => `<div class="frame" style="--s:${sc.toFixed(3)}">${cardHTML(r)}</div>`).join('')
+                 : '<div class="empty">左の一覧で商品を選ぶと、ここにカンバンが表示されます。</div>');
+  pv.querySelectorAll('.fit').forEach(fit);
+  $('#print').disabled = !list.length;
+  $('#print').textContent = list.length ? `🖨 ${list.length}枚を印刷する` : '🖨 印刷する';
+}
+$('#print').onclick = () => window.print();
+
+/* ---------- 一覧の更新（荻原さん用） ---------- */
+$('#editToggle').onclick = () => {
+  editing = !editing;
+  $('#editToggle').classList.toggle('on', editing);
+  $('#editToggle').textContent = editing ? '✓ 編集を終える' : '✎ 一覧を編集する';
+  renderMaster(); renderPreview();
+};
+$('#discard').onclick = () => {
+  if (!ls.get(K_DRAFT, null)){ alert('このPCで編集中の内容はありません。'); return; }
+  if (!confirm('このPCでの編集をすべて取り消して、GitHubの一覧に戻しますか？')) return;
+  ls.del(K_DRAFT); selected.clear(); loadMaster();
+};
+$('#export').onclick = () => {
+  const d = new Date(), ymd = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  const items = master.filter(it => (it.loc + it.code + it.name).trim()).sort(natural)
+    .map(({loc,code,name,qty}) => ({loc:loc.trim(), code:code.trim(), name:name.trim(), qty:String(qty ?? '').trim()}));
+  const blob = new Blob([JSON.stringify({updated: ymd, items}, null, 1)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'products.json';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+
+function parseCSV(text){
+  const out = []; let row = [], f = '', q = false;
+  for (let i = 0; i < text.length; i++){
+    const c = text[i];
+    if (q){ if (c === '"'){ if (text[i+1] === '"'){ f += '"'; i++; } else q = false; } else f += c; }
+    else if (c === '"') q = true;
+    else if (c === ','){ row.push(f); f = ''; }
+    else if (c === '\n' || c === '\r'){ if (c === '\r' && text[i+1] === '\n') i++; row.push(f); out.push(row); row = []; f = ''; }
+    else f += c;
+  }
+  if (f || row.length){ row.push(f); out.push(row); }
+  return out;
+}
+$('#csv').onchange = async e => {
+  const file = e.target.files[0]; if (!file) return;
+  const msg = $('#msg'); msg.className = 'msg';
+  const buf = await file.arrayBuffer();
+  let text = new TextDecoder('utf-8').decode(buf);
+  if (text.includes('�')) text = new TextDecoder('shift_jis').decode(buf);
+  const data = parseCSV(text.replace(/^﻿/, ''));
+  const h = data[0] || [];
+  const iCode = h.indexOf('商品コード'), iName = h.indexOf('商品名'), iLoc = h.indexOf('ロケーション');
+  if (iCode < 0 || iName < 0 || iLoc < 0){ msg.className = 'msg err'; msg.textContent = '「商品コード」「商品名」「ロケーション」の列が見つかりません。在庫一覧CSVか確認してください。'; e.target.value = ''; return; }
+  const prefix = $('#prefix').value.trim(), parentOnly = $('#parentOnly').checked, over = $('#locOverride').value.trim();
+  const have = new Set(master.map(it => it.loc + '|' + it.code));
+  const add = [];
+  for (const r of data.slice(1)){
+    const full = (r[iLoc] || '').trim(); if (!full || (prefix && !full.startsWith(prefix))) continue;
+    const short = full.includes('】') ? full.split('】').pop() : full;
+    if (parentOnly && short.split('-').length > 2) continue;
+    const it = {loc: over || short, code:(r[iCode]||'').trim(), name:(r[iName]||'').replace(/　/g,' ').trim(), qty:''};
+    const key = it.loc + '|' + it.code; if (have.has(key)) continue;
+    have.add(key); add.push(withId(it));
+  }
+  master = master.concat(add).sort(natural);
+  saveDraft(); renderMaster(); renderPreview();
+  msg.textContent = `${add.length}件を一覧に追加しました（すでにあるものは除いています）。最後に「products.json を書き出す」でGitHubへ。`;
+  e.target.value = '';
+};
+
+/* ---------- 起動 ---------- */
+let t3; window.addEventListener('resize', () => { clearTimeout(t3); t3 = setTimeout(renderPreview, 200); });
+renderExtra();
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(loadMaster);
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>

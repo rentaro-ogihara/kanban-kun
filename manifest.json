@@ -1,0 +1,16 @@
+{
+  "name": "カンバン君",
+  "short_name": "カンバン君",
+  "description": "倉庫の棚に貼るカンバン（ロケ・商品コード・商品名・入数）をA4横で印刷する",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f5f9",
+  "theme_color": "#13294b",
+  "lang": "ja",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
